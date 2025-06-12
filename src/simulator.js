@@ -1,7 +1,7 @@
-let bankroll = 200;
 const betAmount = 10;
 const maxRounds = 1000;
 const cashOutLimit = 1000;
+const SIMULATIONS = 1000;
 
 const betNumbers = [2, 3, 4, 5, 6, 8, 9, 10, 11, 12];
 const payouts = {
@@ -17,9 +17,6 @@ const payouts = {
   12: 30,
 };
 
-
-let activeBets = {};
-
 function rollDie() {
   return Math.floor(Math.random() * 6) + 1;
 }
@@ -28,54 +25,55 @@ function rollDice() {
   return rollDie() + rollDie();
 }
 
-function placeAllBets() {
-  for (let num of betNumbers) {
-    if (!activeBets[num]) {
-      if (bankroll >= betAmount) {
-        bankroll -= betAmount;
-        activeBets[num] = true;
-        console.log(`Placed $${betAmount} on ${num}.`);
-      } else {
-        console.log(`Not enough money to bet on ${num}.`);
+function runSimulationOnce() {
+  let bankroll = 200;
+  let activeBets = {};
+  let round = 1;
+
+  function placeAllBets() {
+    for (let num of betNumbers) {
+      if (!activeBets[num]) {
+        if (bankroll >= betAmount) {
+          bankroll -= betAmount;
+          activeBets[num] = true;
+        }
       }
     }
   }
-}
 
-function playRound(round) {
-  placeAllBets();
-  const roll = rollDice();
-  console.log(`\n=== Round ${round} ===`);
-  console.log(`Rolled: ${roll}`);
-  if (roll === 7) {
-    console.log("7 rolled! All bets lost.");
-    activeBets = {};
-  } else if (activeBets[roll]) {
-    const payout = betAmount * payouts[roll];
-    bankroll += payout;
-    console.log(`Hit ${roll}! Won $${payout.toFixed(2)}. Bankroll: $${bankroll.toFixed(2)}`);
-  } else {
-    console.log(`No hit. Bankroll: $${bankroll.toFixed(2)}`);
+  function playRound() {
+    placeAllBets();
+    const roll = rollDice();
+    if (roll === 7) {
+      activeBets = {};
+    } else if (activeBets[roll]) {
+      const payout = betAmount * payouts[roll];
+      bankroll += payout;
+    }
   }
+
+  while (
+    (bankroll >= betAmount || Object.keys(activeBets).length > 0) &&
+    round <= maxRounds &&
+    bankroll < cashOutLimit
+  ) {
+    playRound();
+    round++;
+  }
+
+  if (bankroll >= cashOutLimit) return 'cashout';
+  if (bankroll < betAmount && Object.keys(activeBets).length === 0) return 'broke';
+  return 'max_rounds';
 }
 
-let round = 1;
-while (
-  (bankroll >= betAmount || Object.keys(activeBets).length > 0) &&
-  round <= maxRounds &&
-  bankroll < cashOutLimit
-) {
-  playRound(round);
-  round++;
+let results = { cashout: 0, broke: 0, max_rounds: 0 };
+
+for (let i = 0; i < SIMULATIONS; i++) {
+  const outcome = runSimulationOnce();
+  results[outcome]++;
 }
 
-console.log(`\nSimulation complete after ${round - 1} rounds.`);
-console.log(`Final bankroll: $${bankroll.toFixed(2)}`);
-
-if (bankroll >= cashOutLimit) {
-  console.log("💰 Cash-out goal reached!");
-} else if (bankroll < betAmount && Object.keys(activeBets).length === 0) {
-  console.log("💸 Bankroll depleted.");
-} else {
-  console.log("🛑 Max rounds reached.");
-}
+console.log(`\n--- ${SIMULATIONS} Simulations ---`);
+console.log(`Cashouts (≥ $1000): ${results.cashout}`);
+console.log(`Broke: ${results.broke}`);
+console.log(`Max rounds reached: ${results.max_rounds}`);
