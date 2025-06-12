@@ -1,7 +1,8 @@
 const betAmount = 10;
 const maxRounds = 1000;
 const cashOutLimit = 1000;
-const SIMULATIONS = 1000;
+const SIMULATIONS_PER_BATCH = 1000;
+const BATCHES = 100;
 
 const betNumbers = [2, 3, 4, 5, 6, 8, 9, 10, 11, 12];
 const payouts = {
@@ -66,16 +67,20 @@ function runSimulationOnce() {
   return 'max_rounds';
 }
 
-let results = { cashout: 0, broke: 0, max_rounds: 0 };
+let allRatios = [];
 
-for (let i = 0; i < SIMULATIONS; i++) {
-  const outcome = runSimulationOnce();
-  results[outcome]++;
+for (let b = 0; b < BATCHES; b++) {
+  let results = { cashout: 0, broke: 0, max_rounds: 0 };
+  for (let i = 0; i < SIMULATIONS_PER_BATCH; i++) {
+    const outcome = runSimulationOnce();
+    results[outcome]++;
+  }
+  const wins = results.cashout;
+  const losses = results.broke;
+  const ratio = losses === 0 ? wins : (wins / losses).toFixed(2);
+  console.log(`Batch ${b + 1} - Wins: ${wins}, Losses: ${losses}, Ratio: ${ratio}:1`);
+  allRatios.push(parseFloat(ratio));
 }
 
-const pct = type => ((results[type] / SIMULATIONS) * 100).toFixed(2);
-
-console.log(`\n--- ${SIMULATIONS} Simulations ---`);
-console.log(`Cashouts (≥ $1000): ${results.cashout} (${pct('cashout')}%)`);
-console.log(`Broke: ${results.broke} (${pct('broke')}%)`);
-console.log(`Max rounds reached: ${results.max_rounds} (${pct('max_rounds')}%)`);
+const avgRatio = (allRatios.reduce((a, b) => a + b, 0) / allRatios.length).toFixed(2);
+console.log(`\nAverage win-to-loss ratio across all batches: ${avgRatio}:1`);
