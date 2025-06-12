@@ -73,7 +73,9 @@ for (let i = 0; i < SIMULATIONS; i++) {
   results[outcome]++;
 }
 
+const pct = type => ((results[type] / SIMULATIONS) * 100).toFixed(2);
+
 console.log(`\n--- ${SIMULATIONS} Simulations ---`);
-console.log(`Cashouts (≥ $1000): ${results.cashout}`);
-console.log(`Broke: ${results.broke}`);
-console.log(`Max rounds reached: ${results.max_rounds}`);
+console.log(`Cashouts (≥ $1000): ${results.cashout} (${pct('cashout')}%)`);
+console.log(`Broke: ${results.broke} (${pct('broke')}%)`);
+console.log(`Max rounds reached: ${results.max_rounds} (${pct('max_rounds')}%)`);
