@@ -1,59 +1,57 @@
-# Crapless Craps Strategy Simulator
+# Casino Strategy Simulators
 
-> **“Probability is not a promise.”**  
-> This project started with curiosity and confidence in the math — and ended with a humbling reminder that even the best odds can lose.
+> **"Probability isn't a guarantee."**
 
-## Overview
+This project started with curiosity: could solid betting strategies survive long-term randomness? It covers two games — **Crapless Craps** and **American Roulette** — and tests different approaches over thousands of simulated spins and rolls.
 
-This simulator was built to test a real-world betting strategy for Crapless Craps — a game variation where players can bet on every number *except* 7, which clears the board.
+Even the most confident math gets tested when you run it a thousand times.
 
-The strategy seemed statistically strong:
-- Cover every bettable number (2, 3, 4, 5, 6, 8, 9, 10, 11, 12)
-- Use consistent bet sizes
-- Walk away at a predetermined cash-out goal
+---
 
-Over thousands of runs, simulations showed high win rates, stable profit curves, and solid average outcomes. It looked, at first, like a beatable game.
+## 🎯 Games Simulated
 
-## What Was Simulated
+### Crapless Craps
 
-- A player starting with a fixed bankroll (e.g., $200 or $4,000)
-- Consistent bets on all numbers except 7
-- Rebuys allowed up to a fixed cap (e.g., $600 per session)
-- A hard exit when profits reached a target (e.g., $4,000 or $8,000)
-- Long-term behaviors, such as playing weekly or monthly over a year
+- Bets placed on **every number except 7**
+- Fixed bankroll per session (e.g. $200, $4,000)
+- Rebuys allowed up to a cap (e.g. $600/session)
+- Player walks away once a profit goal is hit (e.g. $4,000 or $8,000)
+- Simulated across weekly or monthly play over a year
 
-## What We Learned
+### American Roulette
 
-In simulation:
-- Win rates per session often exceeded 90%
-- Larger starting bankrolls provided strong protection from variance
-- A disciplined player with firm exit rules could walk away a consistent winner
+One example strategy:
+- $250 on **1st 12** (1–12)
+- $250 on **2nd 12** (13–24)
+- $250 on **left column** (1, 4, 7...34)
+- $250 on **right column** (3, 6, 9...36)
 
-But in real life:
-- The rare 0.01% outcome showed up
-- A cluster of 7s — or a streak of nothing but missed numbers — drained the bankroll
-- The simulation’s confidence didn't protect against the reality of randomness
+This adds up to a **$1,000 bet per spin**, testing how often the player can hit 2 or more winning areas.
 
-## The Hard Truth
+---
 
-No matter how good the math looks:
-- **Variance always exists**
-- The longer you play, the more likely you are to meet that outlier
-- **Casinos are built on “eventually”**
+## 🧪 How It Works
 
-Even smart strategies can fail. Especially if you start believing they can’t.
+Each game strategy is simulated using JavaScript. You can run:
 
-## Why This Project Exists
+- **Single spin/roll tests** to debug logic
+- **Batch simulations** to get the bigger picture
 
-To learn.  
-To test ideas.  
-To understand risk.  
-To appreciate that even a logical system can be wrong in the short term.  
-And to respect randomness instead of trying to out-clever it.
+The batch tests:
+- Run a **strategy 100 times per session**
+- Repeat that session **1,000 times**
+- Track net wins/losses for each
+- Print an average result across all sessions
 
-## Usage
+---
 
-To simulate the strategy and see outcomes over time, run:
+## 💡 What I Learned
 
-```bash
-node src/doubleOrBustBatches.js
+- Covering more of the board *feels* safe but doesn’t guarantee anything
+- Some strategies win often — but one bad streak can undo it all
+- In batches, variance always shows up eventually
+- The math may be right, but the timing still rules the outcome
+
+---
+
+
