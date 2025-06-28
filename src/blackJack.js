@@ -23,16 +23,22 @@ playerHand.push(deck.pop());
 dealerHand.push(deck.pop());
 
 //check first for dealer blackjack
-const hasAce = dealerHand.includes('A');
-const hasTenValue = dealerHand.some(card => ['10', 'J', 'Q', 'K'].includes(card));
+const dealerHasAce = dealerHand.includes('A');
+const dealerHasTenValue = dealerHand.some(card => ['10', 'J', 'Q', 'K'].includes(card));
 
-console.log(`Player hand: ${playerHand.join(', ')}`);
-console.log(`Dealer hand: ${dealerHand.join(', ')}`);
-
-if (hasAce && hasTenValue) {
+if (dealerHasAce && dealerHasTenValue) {
   console.log("Dealer has Blackjack. Hand over.");
 } else {
-  console.log("No dealer Blackjack. Continue play.");
+  //check for player blackjack
+  const playerHasAce = playerHand.includes('A');
+  const playerHasTenValue = playerHand.some(card => ['10', 'J', 'Q', 'K'].includes(card));
+  if (playerHasAce && playerHasTenValue) {
+    console.log("Player has Blackjack! Player wins.");
+  } else {
+    const dealerUpcard = dealerHand[1]; //show dealer's 2nd card face up
+    console.log(`Dealer is showing: ${dealerUpcard}`);
+    console.log("No Blackjacks. Begin player decision-making...");
+  }
 }
 
 
