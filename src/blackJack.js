@@ -42,3 +42,28 @@ if (dealerHasAce && dealerHasTenValue) {
 }
 
 
+function calculateHandValue(hand) {
+  let value = 0;
+  let aceCount = 0;
+
+  for (let card of hand) {
+    if (card === 'A') {
+      value += 11;
+      aceCount += 1;
+    } else if (['K', 'Q', 'J'].includes(card)) {
+      value += 10;
+    } else {
+      value += parseInt(card);
+    }
+  }
+
+  while (value > 21 && aceCount > 0) {
+    value -= 10;
+    aceCount -= 1;
+  }
+
+  return value;
+}
+
+const playerValue = calculateHandValue(playerHand);
+console.log(`Player's hand: ${playerHand.join(', ')} (value: ${playerValue})`);
