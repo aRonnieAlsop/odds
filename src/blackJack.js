@@ -67,3 +67,42 @@ function calculateHandValue(hand) {
 
 const playerValue = calculateHandValue(playerHand);
 console.log(`Player's hand: ${playerHand.join(', ')} (value: ${playerValue})`);
+
+function getPlayerAction(playerValue, dealerUpcard) {
+  const dealerValue = ['J', 'Q', 'K'].includes(dealerUpcard) ? 10 :
+                      dealerUpcard === 'A' ? 11 : parseInt(dealerUpcard);
+
+  if (playerValue >= 17) return 'stay';
+  if (playerValue <= 11) return 'hit';
+
+  switch (playerValue) {
+    case 12:
+      return dealerValue >= 4 && dealerValue <= 6 ? 'stand' : 'hit';
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+      return dealerValue >= 2 && dealerValue <= 6 ? 'stand' : 'hit';
+    default:
+      return 'hit';
+  }
+}
+
+if (!dealerHasAce || !dealerHasTenValue) {
+  const dealerUpcard = dealerHand[1];
+  const action = getPlayerAction(playerValue, dealerUpcard);
+
+  if (action === 'hit') {
+    const newCard = deck.pop();
+    playerHand.push(newCard);
+    const newValue = calculateHandValue(playerHand);
+    console.log(`player hits and gets ${newCard}. New hand: ${playerHand.join(', ')} (value: ${newValue})`);
+    if (newValue > 21) {
+      console.log("player busts.");
+    } else {
+      console.log("player stays.");
+    }
+  } else if (action === 'stay') {
+    console.log("player stays.");
+  }
+}
