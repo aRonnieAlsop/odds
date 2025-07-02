@@ -41,6 +41,15 @@ if (dealerHasAce && dealerHasTenValue) {
   }
 }
 
+function isSoftHand(hand) {
+  return hand.includes('A') && calculateHandValue(hand) <= 21;
+}
+
+function isPair(hand) {
+  return hand.length === 2 && hand[0] === hand[1];
+}
+
+
 
 function calculateHandValue(hand) {
   let value = 0;
@@ -68,29 +77,74 @@ function calculateHandValue(hand) {
 const playerValue = calculateHandValue(playerHand);
 console.log(`Player's hand: ${playerHand.join(', ')} (value: ${playerValue})`);
 
-function getPlayerAction(playerValue, dealerUpcard) {
+function getPlayerAction(playerHand, dealerUpcard) {
   const dealerValue = ['J', 'Q', 'K'].includes(dealerUpcard) ? 10 :
                       dealerUpcard === 'A' ? 11 : parseInt(dealerUpcard);
+  const playerValue = calculateHandValue(playerHand);
 
+  if (isPair(playerHand)) {
+    const pairCard = playerHand[0];
+    switch (pairCard) {
+      case 'A':
+      case '8':
+        return 'split';
+      case '10':
+        return 'stay';
+      case '9':
+        return dealerValue === 7 || dealerValue >= 10 ? 'stay' : 'split';
+      case '7':
+        return dealerValue <= 7 ? 'split' : 'hit';
+      case '6':
+        return dealerValue <= 6 ? 'split' : 'hit';
+      case '4':
+        return dealerValue === 5 || dealerValue === 6 ? 'split' : 'hit';
+      case '3':
+      case '2':
+        return dealerValue <= 7 ? 'split' : 'hit';
+    }
+  }
+
+  if (isSoftHand(playerHand)) {
+    switch (playerValue) {
+      case 13:
+      case 14:
+        return dealerValue >= 5 && dealerValue <= 6 ? 'double' : 'hit';
+      case 15:
+      case 16:
+        return dealerValue >= 4 && dealerValue <= 6 ? 'double' : 'hit';
+      case 17:
+        return dealerValue >= 3 && dealerValue <= 6 ? 'double' : 'hit';
+      case 18:
+        return dealerValue >= 9 || dealerValue === 2 ? 'hit' :
+               dealerValue >= 3 && dealerValue <= 6 ? 'double' : 'stay';
+      case 19:
+      case 20:
+      case 21:
+        return 'stay';
+    }
+  }
+
+  //hard total rules
   if (playerValue >= 17) return 'stay';
   if (playerValue <= 11) return 'hit';
 
   switch (playerValue) {
     case 12:
-      return dealerValue >= 4 && dealerValue <= 6 ? 'stand' : 'hit';
+      return dealerValue >= 4 && dealerValue <= 6 ? 'stay' : 'hit';
     case 13:
     case 14:
     case 15:
     case 16:
-      return dealerValue >= 2 && dealerValue <= 6 ? 'stand' : 'hit';
+      return dealerValue >= 2 && dealerValue <= 6 ? 'stay' : 'hit';
     default:
       return 'hit';
   }
 }
 
+
 if (!dealerHasAce || !dealerHasTenValue) {
   const dealerUpcard = dealerHand[1];
-  const action = getPlayerAction(playerValue, dealerUpcard);
+  const action = getPlayerAction(playerHand, dealerUpcard);
 
   if (action === 'hit') {
     const newCard = deck.pop();
@@ -106,3 +160,4 @@ if (!dealerHasAce || !dealerHasTenValue) {
     console.log("player stays.");
   }
 }
+
