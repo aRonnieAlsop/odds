@@ -141,10 +141,11 @@ function getPlayerAction(playerHand, dealerUpcard) {
   }
 }
 
+let action;
 
 if (!dealerHasAce || !dealerHasTenValue) {
   const dealerUpcard = dealerHand[1];
-  const action = getPlayerAction(playerHand, dealerUpcard);
+  action = getPlayerAction(playerHand, dealerUpcard);
 
   if (action === 'hit') {
     const newCard = deck.pop();
@@ -158,6 +159,38 @@ if (!dealerHasAce || !dealerHasTenValue) {
     }
   } else if (action === 'stay') {
     console.log("player stays.");
+  } else if (action === 'split') {
+    console.log("player chooses to split.");
+  } else if (action === 'double') {
+    console.log("player chooses to double (not implemented yet).");
+  }
+}
+
+// dealer plays only if player didn't bust or split
+if (action !== 'split' && calculateHandValue(playerHand) <= 21) {
+  console.log(`\nDealer reveals hidden card: ${dealerHand[0]}`);
+  let dealerValue = calculateHandValue(dealerHand);
+  console.log(`Dealer's full hand: ${dealerHand.join(', ')} (value: ${dealerValue})`);
+
+  //dealer hits until value >= 17
+  while (dealerValue < 17) {
+    const newCard = deck.pop();
+    dealerHand.push(newCard);
+    dealerValue = calculateHandValue(dealerHand);
+    console.log(`Dealer hits and gets ${newCard}. New hand: ${dealerHand.join(', ')} (value: ${dealerValue})`);
+  }
+
+  //results
+  const finalPlayerValue = calculateHandValue(playerHand);
+
+  if (dealerValue > 21) {
+    console.log("Dealer busts! Player wins.");
+  } else if (dealerValue > finalPlayerValue) {
+    console.log("Dealer wins.");
+  } else if (dealerValue < finalPlayerValue) {
+    console.log("Player wins.");
+  } else {
+    console.log("Push (tie).");
   }
 }
 
