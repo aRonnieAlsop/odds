@@ -157,14 +157,39 @@ if (!dealerHasAce || !dealerHasTenValue) {
     } else {
       console.log("player stays.");
     }
-  } else if (action === 'stay') {
-    console.log("player stays.");
-  } else if (action === 'split') {
-    console.log("player chooses to split.");
-  } else if (action === 'double') {
-    console.log("player chooses to double (not implemented yet).");
+  } } else if (action === 'split') {
+  const splitHands = [[playerHand[0], deck.pop()], [playerHand[1], deck.pop()]];
+  console.log(`player splits. Hands: [${splitHands[0].join(', ')}] and [${splitHands[1].join(', ')}]`);
+
+  for (let i = 0; i < splitHands.length; i++) {
+    const handValue = calculateHandValue(splitHands[i]);
+    console.log(`Hand ${i + 1}: ${splitHands[i].join(', ')} (value: ${handValue})`);
+
+    while (calculateHandValue(splitHands[i]) < 17) {
+      const newCard = deck.pop();
+      splitHands[i].push(newCard);
+      const val = calculateHandValue(splitHands[i]);
+      console.log(`Hand ${i + 1} hits and gets ${newCard}. New hand: ${splitHands[i].join(', ')} (value: ${val})`);
+      if (val > 21) {
+        console.log(`Hand ${i + 1} busts.`);
+        break;
+      }
+    }
+  }
+
+  console.log("Skipping dealer logic due to split hands.");
+  return;
+} else if (action === 'double') {
+  const newCard = deck.pop();
+  playerHand.push(newCard);
+  const newValue = calculateHandValue(playerHand);
+  console.log(`player doubles down and gets ${newCard}. Final hand: ${playerHand.join(', ')} (value: ${newValue})`);
+  if (newValue > 21) {
+    console.log("player busts.");
   }
 }
+
+
 
 // dealer plays only if player didn't bust or split
 if (action !== 'split' && calculateHandValue(playerHand) <= 21) {
