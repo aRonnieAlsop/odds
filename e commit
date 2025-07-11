@@ -1,0 +1,167 @@
+[33mcommit e9c0c6699f7b10edad7e42a2fb99adabd70a7f5c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Ronnie Alsop <arene888@mgail.com>
+Date:   Fri Jul 11 10:19:29 2025 -0700
+
+    'this thing on?'
+
+[33mcommit f09d43dd3eb5c475c6ad75c48c6fb5f011a44a56[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Ronnie Alsop <arene888@mgail.com>
+Date:   Fri Jul 11 07:54:49 2025 -0700
+
+    'please commit'
+
+[33mcommit 05eb7fef645aacf2171df2a44722d606ee61b220[m
+Author: Ronnie Alsop <arene888@mgail.com>
+Date:   Tue Jul 8 20:51:08 2025 -0700
+
+    'blackjack with betting simulated'
+
+[33mcommit 6bb4d59136ada22c47d3d6ea02fcf48bc680a6a1[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jul 5 14:22:36 2025 -0700
+
+    'split + dbl down logic'
+
+[33mcommit 0b95d3460b604d0063955cbfafa391d57ae04b87[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Fri Jul 4 12:51:13 2025 -0700
+
+    'continue play'
+
+[33mcommit 5d1fe65ae172b9587011a637e7b84bded3b019b4[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jul 2 09:06:50 2025 -0700
+
+    'split & soft hand cases'
+
+[33mcommit 97dfc0ef3eaf5fb8fb4f6cab38cd4a7ec03a21cc[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jul 2 08:21:49 2025 -0700
+
+    'switch case for player making decision'
+
+[33mcommit 9ca1c969158a0bd718a6cc8da138238bd4a558e2[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Mon Jun 30 00:17:44 2025 -0700
+
+    'if no black jacks'
+
+[33mcommit a0805f2e9bed92a1e9fbfb32629642c72f76eb55[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 28 14:39:45 2025 -0700
+
+    'check for player blackjack. show dealer's top card'
+
+[33mcommit b26625f3114ef4aa937b5626728749fc811b9708[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 28 14:34:20 2025 -0700
+
+    'more standard 6 deck cards + checking first deal for dealer black jack'
+
+[33mcommit 3ed3886cdc38db75ee60b62d93f677a71f15b566[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 28 14:15:53 2025 -0700
+
+    'deck of cards'
+
+[33mcommit 8cdf403d0afcc7bba576ae4f84f0425cf18fa732[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 28 14:09:30 2025 -0700
+
+    'lame strategy tested'
+
+[33mcommit 2c6c675277ec62a194fce2bba7ed788649628a89[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 25 21:29:28 2025 -0700
+
+    'updated readMe'
+
+[33mcommit ffc0591e16883de373ca7699cb545d518bad7fb0[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 25 21:01:11 2025 -0700
+
+    'testing roulette strategy in batches'
+
+[33mcommit 03315f68bb2b1bd102567856ef0de31dc24e2aed[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 21 15:10:07 2025 -0700
+
+    'testing proposed betting strategy in single runs'
+
+[33mcommit 97387c74e1c97d434317892b988e8f5078ebdde9[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 21 14:52:53 2025 -0700
+
+    'had to remember to add color coding for #s as on wheel'
+
+[33mcommit 92c4041de55ecd6246034ac3cca141aca8e4272c[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sat Jun 21 14:48:08 2025 -0700
+
+    'added roulette wheel random # generator w/  representation of 00 as well as 0'
+
+[33mcommit b99ed76895bc1e3121e3ffd44c94d3ca18a20341[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Sun Jun 15 20:15:41 2025 -0700
+
+    'probability is not a promise'
+
+[33mcommit e7e4df3fe4b764e3cd0b01aefc4f624c35cbf260[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Fri Jun 13 08:28:24 2025 -0700
+
+    'moddifying payout for money lost'
+
+[33mcommit d27e2ca523d7e5466304e0e7ba8097b44964f49d[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 18:16:28 2025 -0700
+
+    'added targeted winnings using strategy after loss'
+
+[33mcommit ad0fd3187f1b2f7efaa2b0448c0ca1cd8e7a10a1[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 18:05:03 2025 -0700
+
+    'comparing strategy'
+
+[33mcommit 7b6fa35e6d14b3e74fd6bd0e4f468817f8ccb071[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 18:00:41 2025 -0700
+
+    'added second chance odds after losing'
+
+[33mcommit d16fddaa5a7ed69ab20001043de25b172e032829[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 17:47:49 2025 -0700
+
+    'more fo a breakdown of each of the batches ran'
+
+[33mcommit fcfa6c31fccae63b55cd2d75d4d1f291050b82ab[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 17:42:27 2025 -0700
+
+    'added odds of batch'
+
+[33mcommit 496ecee18d27db7df0e70cf3c4acd96e9fdd399a[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 17:39:06 2025 -0700
+
+    'batch of 1000 games running same betting strategy'
+
+[33mcommit db86a3299893b34a443571121e93b675f8966ed0[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 17:32:31 2025 -0700
+
+    'simluation w/ more conservative payout & limit on payout"
+
+[33mcommit 6ac2beddb40b0de4d3161cfdfd0cf9902bd6dcb1[m
+Author: Ronnie Alsop <alsop.arron@gmail.com>
+Date:   Wed Jun 11 17:20:50 2025 -0700
+
+    'simulation of $200 in, full spread simulation"
+
+[33mcommit 1394432a8e7161a2bbcb2d99b9cc0ac515f57716[m
+Author: Ronnie Alsop <133896587+aRonnieAlsop@users.noreply.github.com>
+Date:   Wed Jun 11 17:04:45 2025 -0700
+
+    Initial commit
