@@ -1,4 +1,4 @@
-g
+
 let grandTotal = 0;
 
 for (let i = 0; i < 1000; i++) {
