@@ -101,14 +101,14 @@ function playOneRound(deck) {
   console.log("\n--- New Round ---");
 
   if (dealerHasAce && dealerHasTenValue) {
-    console.log(`Dealer has Blackjack with ${dealerHand.join(', ')}. Player loses.`);
+    console.log("Dealer has Blackjack. Hand over.");
     return 'lose';
   }
 
   const playerHasAce = playerHand.includes('A');
   const playerHasTenValue = playerHand.some(card => ['10', 'J', 'Q', 'K'].includes(card));
   if (playerHasAce && playerHasTenValue) {
-    console.log(`Player has Blackjack with ${playerHand.join(', ')}. Player wins!`);
+    console.log("Player has Blackjack! Player wins.");
     return 'win';
   }
 
@@ -118,24 +118,55 @@ function playOneRound(deck) {
   const dealerUpcard = dealerHand[1];
   const action = getPlayerAction(playerHand, dealerUpcard);
 
+  if (action === 'split') {
+    console.log("Player splits.");
+    const hands = [[playerHand[0], deck.pop()], [playerHand[1], deck.pop()]];
+    let finalResult = 'push';
+
+    for (let i = 0; i < hands.length; i++) {
+      console.log(`\nPlaying split hand ${i + 1}: ${hands[i].join(', ')}`);
+      while (calculateHandValue(hands[i]) < 17) {
+        const newCard = deck.pop();
+        hands[i].push(newCard);
+        const value = calculateHandValue(hands[i]);
+        console.log(`Hand ${i + 1} hits and gets ${newCard}. New hand: ${hands[i].join(', ')} (value: ${value})`);
+        if (value > 21) {
+          console.log(`Hand ${i + 1} busts.`);
+          continue;
+        }
+      }
+    }
+
+    console.log(`\nDealer reveals hidden card: ${dealerHand[0]}`);
+    let dealerValue = calculateHandValue(dealerHand);
+    console.log(`Dealer's hand: ${dealerHand.join(', ')} (value: ${dealerValue})`);
+
+    while (dealerValue < 17) {
+      const newCard = deck.pop();
+      dealerHand.push(newCard);
+      dealerValue = calculateHandValue(dealerHand);
+      console.log(`Dealer hits and gets ${newCard}. New hand: ${dealerHand.join(', ')} (value: ${dealerValue})`);
+    }
+
+    for (let i = 0; i < hands.length; i++) {
+      const playerValue = calculateHandValue(hands[i]);
+      if (playerValue > 21) continue;
+      if (dealerValue > 21 || playerValue > dealerValue) finalResult = 'win';
+      else if (playerValue < dealerValue && finalResult !== 'win') finalResult = 'lose';
+    }
+
+    return finalResult;
+  }
+
   if (action === 'hit' || action === 'double') {
     const newCard = deck.pop();
     playerHand.push(newCard);
     const newValue = calculateHandValue(playerHand);
-    console.log(`Player ${action === 'double' ? 'doubles and' : 'hits and'} gets ${newCard}. New hand: ${playerHand.join(', ')} (value: ${newValue})`);
+    console.log(`Player ${action === 'double' ? 'doubles down and' : 'hits and'} gets ${newCard}. New hand: ${playerHand.join(', ')} (value: ${newValue})`);
     if (newValue > 21) {
       console.log("Player busts.");
       return 'lose';
     }
-  } else if (action === 'split') {
-    console.log("Player splits (simplified: treated as a hit).");
-    const newCard = deck.pop();
-    playerHand.push(newCard);
-    const newValue = calculateHandValue(playerHand);
-    console.log(`New card: ${newCard}. Hand now: ${playerHand.join(', ')} (value: ${newValue})`);
-    if (newValue > 21) return 'lose';
-  } else {
-    console.log("Player stays.");
   }
 
   const playerValue = calculateHandValue(playerHand);
@@ -147,24 +178,15 @@ function playOneRound(deck) {
     const newCard = deck.pop();
     dealerHand.push(newCard);
     dealerValue = calculateHandValue(dealerHand);
-    console.log(`Dealer hits and gets ${newCard}. Hand: ${dealerHand.join(', ')} (value: ${dealerValue})`);
+    console.log(`Dealer hits and gets ${newCard}. New hand: ${dealerHand.join(', ')} (value: ${dealerValue})`);
   }
 
-  if (dealerValue > 21) {
-    console.log("Dealer busts. Player wins!");
-    return 'win';
-  }
-  if (dealerValue > playerValue) {
-    console.log("Dealer wins.");
-    return 'lose';
-  }
-  if (dealerValue < playerValue) {
-    console.log("Player wins.");
-    return 'win';
-  }
-  console.log("Push (tie).");
+  if (dealerValue > 21) return 'win';
+  if (dealerValue > playerValue) return 'lose';
+  if (dealerValue < playerValue) return 'win';
   return 'push';
 }
+
 
 function runBlackjackSimulation() {
   let bankroll = 200;
